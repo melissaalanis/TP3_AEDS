@@ -1,7 +1,10 @@
 #include "lista_de_cartas.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+void Adicionar_Carta_Lista(Lista_Cartas* lista, Carta *carta, int indice){
+    lista -> lista_cartas[indice] = *carta;
+}
 
 void Preencher_Lista_Interativa(Lista_Cartas* lista) {
     char cores[5] = {'R', 'G', 'Y', 'B', 'P'};
@@ -19,13 +22,36 @@ void Preencher_Lista_Interativa(Lista_Cartas* lista) {
         }
     
         Inicializa_Carta(&carta_aux, carta_numero, cores[carta_cor]);
-        lista->lista_cartas[i] = carta_aux;
+        Adicionar_Carta_Lista(lista, &carta_aux, i);
+    }
+}
+ 
+void Preencher_Lista_Arquivo(Lista_Cartas* lista, FILE* arquivo){
+    int carta_numero;
+    char carta_cor[10];
+    for(int i = 0; i < Max_Tam-1; ){
+        Carta *carta_aux;
+        fscanf(arquivo, "(%s %d) ", &carta_cor, &carta_numero);
+        
+        if (strcmp(carta_cor, "Azul") == 0) {
+            Inicializa_Carta(carta_aux, carta_numero, 'B');
+        } else if (strcmp(carta_cor, "Verde") == 0) {
+            Inicializa_Carta(carta_aux, carta_numero, 'G');
+        } else if (strcmp(carta_cor, "Amarelo") == 0) {
+            Inicializa_Carta(carta_aux, carta_numero, 'Y');
+        } else if (strcmp(carta_cor, "Vermelho") == 0) {
+            Inicializa_Carta(carta_aux, carta_numero, 'R');
+        } else if (strcmp(carta_cor, "Preto") == 0) {
+            Inicializa_Carta(carta_aux, carta_numero, 'P');
+        }
+        Adicionar_Carta_Lista(lista, carta_aux, i);
     }
 }
 
-
 void Printar_Lista(Lista_Cartas* lista) {
+    Carta carta_aux;
     for (int i = 0; i < Max_Tam-1; i++) {
-        printf("%d %c\n", lista->lista_cartas[i].numero, lista->lista_cartas[i].cor);
+         carta_aux = lista-> lista_cartas[i];
+         Printar_Carta(&carta_aux,lista->lista_cartas[i].numero, lista->lista_cartas[i].cor);
     }
 }
