@@ -1,57 +1,100 @@
 #include "lista_de_cartas.h"
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 void Adicionar_Carta_Lista(Lista_Cartas* lista, Carta *carta, int indice){
-    lista -> lista_cartas[indice] = *carta;
-}
+    lista -> lista_cartas[indice] = *carta; // Uma carta eh adicionada na lista de cartas no indice correspondente 
+} 
 
-void Preencher_Lista_Interativa(Lista_Cartas* lista) {
-    char cores[5] = {'R', 'G', 'Y', 'B', 'P'};
-    Carta carta_aux;
+void Preencher_Lista_Interativa(Lista_Cartas* lista) { 
+    char cores[5] = {'R', 'G', 'Y', 'B', 'P'}; // R = RED (Vermelho) || G = GREEN (Verde) || Y = YELLOW (Amarelo) || B = BLUE (Azul) || P = PRETO (Cartas coringa e +4)
     int carta_numero, carta_cor;
 
-    srand(time(NULL));
+    srand(time(NULL)); //Gera a semente dos números aleatorios
 
-    for (int i = 0; i < Max_Tam-1; i++) {
-        carta_cor = (rand() % Qtd_cores);
-        if (carta_cor == 4) {
-            carta_numero = ((rand()% Qtd_coringa) + 13);
+    for (int i = 0; i < Max_Tam-1; i++) { //O for vai até "Max_Tam-1" pois Max_Tam é 11 devido ao fato de termos deixado, por segurança, uma posição a mais no vetor 
+        Carta carta_aux;
+        carta_cor = (rand() % Qtd_cores); //Gera um avlor de 0 a 4 - indices do vetor cores
+        if (carta_cor == 4) { // Se a carta for preta - indice == 4 - seu valor so pode ser 13 ou 14
+            carta_numero = ((rand()% Qtd_coringa) + 13); //O "rand()% Qtd_coringa" gera 0 ou 1, o "+13" serve para torna-lo 13 ou 14
         } else {
-            carta_numero = (rand() % Qtd_cartas);
+            carta_numero = (rand() % Qtd_cartas); //Gera um valor entre 0 e 12
         }
-    
-        Inicializa_Carta(&carta_aux, carta_numero, cores[carta_cor]);
+
+        //Inicializando a carta e adicionando na lista
+        Inicializa_Carta(&carta_aux, carta_numero, cores[carta_cor]); 
         Adicionar_Carta_Lista(lista, &carta_aux, i);
     }
 }
  
 void Preencher_Lista_Arquivo(Lista_Cartas* lista, FILE* arquivo){
     int carta_numero;
-    char carta_cor[10];
-    for(int i = 0; i < Max_Tam-1; ){
-        Carta *carta_aux;
-        fscanf(arquivo, "(%s %d) ", &carta_cor, &carta_numero);
-        
+    char carta_cor[10], carta_tipo[10]; //Serve para guardar a cor e o tipo de carta - coringa, +2, 0, etc - que estao como stings no arquivo
+    char carta_letra_cor;
+
+    for(int i = 0; i < Max_Tam-1; i++){
+        Carta carta_aux;  
+        fscanf(arquivo, " (%s %s) ", carta_cor, carta_tipo);
+        //Pega a string com o nome da cor e associa a sua letra correspondente
+        //R = RED (Vermelho) || G = GREEN (Verde) || Y = YELLOW (Amarelo) || B = BLUE (Azul) || P = PRETO (Cartas coringa e +4)
         if (strcmp(carta_cor, "Azul") == 0) {
-            Inicializa_Carta(carta_aux, carta_numero, 'B');
+            carta_letra_cor = 'B';
         } else if (strcmp(carta_cor, "Verde") == 0) {
-            Inicializa_Carta(carta_aux, carta_numero, 'G');
+            carta_letra_cor = 'G';
         } else if (strcmp(carta_cor, "Amarelo") == 0) {
-            Inicializa_Carta(carta_aux, carta_numero, 'Y');
+            carta_letra_cor = 'Y';
         } else if (strcmp(carta_cor, "Vermelho") == 0) {
-            Inicializa_Carta(carta_aux, carta_numero, 'R');
+            carta_letra_cor = 'R';
         } else if (strcmp(carta_cor, "Preto") == 0) {
-            Inicializa_Carta(carta_aux, carta_numero, 'P');
+            carta_letra_cor = 'P';
         }
-        Adicionar_Carta_Lista(lista, carta_aux, i);
+
+        //Pega o tipo da carta e associa ao numero correspondente
+        if (strcmp(carta_tipo, "Coringa)") == 0) {
+            carta_numero = 14;
+        } else if (strcmp(carta_tipo, "+2)") == 0) {
+            carta_numero = 12;
+        } else if (strcmp(carta_tipo, "+4)") == 0) {
+            carta_numero = 13;
+        } else if (strcmp(carta_tipo, "Voltar)") == 0) {
+            carta_numero = 11;
+        } else if (strcmp(carta_tipo, "Pular)") == 0) {
+            carta_numero = 10;
+        } else if (strcmp(carta_tipo, "0)") == 0) {
+            carta_numero = 0;
+        } else if (strcmp(carta_tipo, "1)") == 0) {
+            carta_numero = 1;
+        } else if (strcmp(carta_tipo, "2)") == 0) {
+            carta_numero = 2;
+        } else if (strcmp(carta_tipo, "3)") == 0) {
+            carta_numero = 3;
+        } else if (strcmp(carta_tipo, "4)") == 0) {
+            carta_numero = 4;
+        } else if (strcmp(carta_tipo, "5)") == 0) {
+            carta_numero = 5;
+        } else if (strcmp(carta_tipo, "6)") == 0) {
+            carta_numero = 6;
+        } else if (strcmp(carta_tipo, "7)") == 0) {
+            carta_numero = 7;
+        } else if (strcmp(carta_tipo, "8)") == 0) {
+            carta_numero = 8;
+        } else if (strcmp(carta_tipo, "9)") == 0) {
+            carta_numero = 9;
+        }
+
+        //Inicializando a carta e adicionando na lista
+        Inicializa_Carta(&carta_aux, carta_numero, carta_letra_cor);
+        Adicionar_Carta_Lista(lista, &carta_aux, i);
     }
 }
+
 
 void Printar_Lista(Lista_Cartas* lista) {
     Carta carta_aux;
     for (int i = 0; i < Max_Tam-1; i++) {
-         carta_aux = lista-> lista_cartas[i];
-         Printar_Carta(&carta_aux,lista->lista_cartas[i].numero, lista->lista_cartas[i].cor);
+        carta_aux = lista-> lista_cartas[i];
+        Printar_Carta(&carta_aux,lista->lista_cartas[i].numero, lista->lista_cartas[i].cor);
     }
 }
+
