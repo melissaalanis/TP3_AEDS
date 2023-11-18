@@ -11,3 +11,4 @@ void Adicionar_Carta_Lista(Lista_Cartas* lista, Carta* carta, int indice);
 void Printar_Lista(Lista_Cartas* lista);
 void BubbleSort(Lista_Cartas* lista, int n);
 void Selecao(Lista_Cartas*lista, int tam_vetor);
+void Insercao (Lista_Cartas* lista, int tam_vetor);

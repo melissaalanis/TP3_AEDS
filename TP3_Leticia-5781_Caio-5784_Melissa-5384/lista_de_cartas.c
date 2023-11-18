@@ -139,3 +139,28 @@ void Selecao(Lista_Cartas*lista, int tam_vetor){
         }
         Printar_Lista(lista);
 }
+
+
+void Insercao(Lista_Cartas* lista, int tam_vetor) {
+    int i, j;
+    Carta carta_aux;
+
+    for (i = 1; i < tam_vetor; i++) { 
+        carta_aux = lista->lista_cartas[i]; //Carta que será movida
+        j = i - 1; //As comparacoes acontecem com as cartas que estão da carta_aux
+
+        while ((j >= 0) && ((carta_aux.valor_cor < lista->lista_cartas[j].valor_cor) || ((carta_aux.valor_cor == lista->lista_cartas[j].valor_cor) && (carta_aux.numero < lista->lista_cartas[j].numero)))) {
+            //Se a carta j+1 tiver uma cor maior que a da carta_aux e, ao mesmo tempo, um número maior, significa que ela tem que ser movida uma posição para a frente
+            //com o objetivo de "abrir espaco" para carta_aux, pois se isso acontecer significa que carta_aux é menor que ela, o mesmo acoentce que carta j tiver a mesma 
+            //cor que carta_aux, mas um numero maior
+            lista->lista_cartas[j + 1] = lista->lista_cartas[j];
+            j--;
+        }
+
+        lista->lista_cartas[j + 1] = carta_aux; //apos ter aberto espaco para carta_aux, colocamos ela na posicao correta, temos "j+1" porque foi necessário decrementar j 
+        //na verificação do while e o ultimo j utilizado nas movimentacoes é o indice correto de carta_aux
+
+    }
+
+    Printar_Lista(lista);
+}

@@ -22,7 +22,9 @@ void Menu(Lista_Cartas* baralho){
         Selecao(baralho, Max_Tam);
         break;
     case 3:
-        /* code */
+        printf("INSERÇÃO:\n");
+        printf("Mão Final:\n");
+        Insercao(baralho, Max_Tam);
         break;
     case 4:
         /* code */
