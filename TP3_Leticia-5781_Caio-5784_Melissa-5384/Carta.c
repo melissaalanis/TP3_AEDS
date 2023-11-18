@@ -1,6 +1,6 @@
 #include "Carta.h"
 
-void Inicializa_Carta(Carta* carta, int numero, char cor){
+void Inicializa_Carta(Carta* carta, int numero, char cor){ // ORDEM: G, Y, R, B, P
     carta -> numero = numero;
     carta -> cor = cor;
     if (carta -> cor == 'R'){

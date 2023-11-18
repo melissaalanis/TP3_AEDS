@@ -120,3 +120,22 @@ void BubbleSort(Lista_Cartas* lista, int n) {
     }
 }
 
+void Selecao(Lista_Cartas*lista, int tam_vetor){
+    int i, j, min; // "i" será utilizado para percorrer o vetor || "j" será utilizado para buscar o menor elemento do v. || "min" guarda o indice do menor elemento do v. na busca
+    Carta carta_aux; // criando a carta aux que nos ajudará nas movimentações
+    for(i=0; i < tam_vetor-1; i++) { // o i vai até tam_vetor-1, pois o ultimo elemento da seleção estará já ordenado seguindo o raciocínio do algoritmo
+        min = i;
+        for (j = i+1; j< tam_vetor; j++){
+            if ((lista->lista_cartas[j].valor_cor) < (lista-> lista_cartas[min].valor_cor)) min = j; // procurando os "menores elementos" com base nas cores. 
+            // ORDEM DAS CORES: G, Y, R, B, P;
+            else if ((lista->lista_cartas[j].valor_cor) == (lista-> lista_cartas[min].valor_cor)) { // Se as cores forem iguais, comparar entao pelo valor das cartas, priorizando a menor;
+                if ((lista ->lista_cartas[j].numero) < (lista->lista_cartas[min].numero)) min = j;
+            }
+        }
+        // Após cada looping mais interno
+        carta_aux = lista -> lista_cartas[min]; // a carta auxiliar recebe a menor carta do vetor no momento em q é percorrido
+        lista -> lista_cartas[min] = lista ->lista_cartas[i]; // troca-se a carta de menor valor encontrada com a que é maior que ela
+        lista ->lista_cartas[i] = carta_aux; // 
+        }
+        Printar_Lista(lista);
+}
