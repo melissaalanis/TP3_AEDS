@@ -9,10 +9,12 @@ void Menu(Lista_Cartas* baralho){
     scanf("%d", &escolha);
 
     // FAZER UMA FUNCAO QUE PRINTE OS DADOS: mao ordenada, tempo, movimentaçoes, etc.
-    switch (escolha)
-    {
+    switch (escolha){
     case 1:
-        /* code */
+        printf("BubbleSort:\n");
+        printf("Mao Final:\n");
+        BubbleSort(baralho, Max_Tam);
+        Printar_Lista(baralho);
         break;
     case 2:
         /* code */

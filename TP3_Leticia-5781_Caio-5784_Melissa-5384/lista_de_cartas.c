@@ -98,3 +98,25 @@ void Printar_Lista(Lista_Cartas* lista) {
     }
 }
 
+void BubbleSort(Lista_Cartas* lista, int n) {
+    int i, j;
+    Carta aux;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 1; j < n - i; j++) {
+            // Ordenar por cor primeiro
+            if (lista->lista_cartas[j].valor_cor < lista->lista_cartas[j - 1].valor_cor) {
+                aux = lista->lista_cartas[j];
+                lista->lista_cartas[j] = lista->lista_cartas[j - 1];
+                lista->lista_cartas[j - 1] = aux;
+                
+            } else if (lista->lista_cartas[j].valor_cor == lista->lista_cartas[j - 1].valor_cor) {// Se as cores forem iguais, ordenar por número
+                if (lista->lista_cartas[j].numero < lista->lista_cartas[j - 1].numero) {
+                    aux = lista->lista_cartas[j];
+                    lista->lista_cartas[j] = lista->lista_cartas[j - 1];
+                    lista->lista_cartas[j - 1] = aux;
+                }
+            }
+        }
+    }
+}
+

@@ -16,6 +16,7 @@
 typedef struct {
     char cor; // R = vermelho, G = verde, B = azul, Y = amarelo, P = Preto
     int numero; 
+    int valor_cor;
     // Valores de 0 á 9 representam os próprios números, o bloqueio vale 10, 
     //o volta vale 11, +2 vale 12, o +4 vale 13 e o coringa (escolhe cor) vale 14
 } Carta;
