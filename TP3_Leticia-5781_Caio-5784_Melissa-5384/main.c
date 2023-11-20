@@ -12,19 +12,15 @@ void Menu(Lista_Cartas* baralho){
     switch (escolha){
     case 1:
         printf("BUBBLE:\n");
-        printf("Mão Final:\n");
-        BubbleSort(baralho, Max_Tam);
-        Printar_Lista(baralho);
+        BubbleSort(baralho, Max_Tam-1);
         break;
     case 2:
         printf("SELEÇÃO:\n");
-        printf("Mão Final:\n");
-        Selecao(baralho, Max_Tam);
+        Selecao(baralho, Max_Tam-1);
         break;
     case 3:
         printf("INSERÇÃO:\n");
-        printf("Mão Final:\n");
-        Insercao(baralho, Max_Tam);
+        Insercao(baralho, Max_Tam-1);
         break;
     case 4:
         /* code */

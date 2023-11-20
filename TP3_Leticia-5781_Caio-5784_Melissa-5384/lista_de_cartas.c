@@ -94,7 +94,8 @@ void Printar_Lista(Lista_Cartas* lista) {
     Carta carta_aux;
     for (int i = 0; i < Max_Tam-1; i++) {
         carta_aux = lista-> lista_cartas[i];
-        Printar_Carta(&carta_aux,lista->lista_cartas[i].numero, lista->lista_cartas[i].cor);
+        printf("[%02d]: ", i+1);
+        Printar_Carta(&carta_aux);
     }
 }
 
@@ -121,28 +122,48 @@ void BubbleSort(Lista_Cartas* lista, int n) {
 }
 
 void Selecao(Lista_Cartas*lista, int tam_vetor){
+    clock_t tempo_inicial, tempo_final;
+    double tempo_total;
+
+    tempo_inicial = clock();  // Tempo inicial da contagem
+    int comparacoes = 0;
+    int movimentacoes = 0;
     int i, j, min; // "i" será utilizado para percorrer o vetor || "j" será utilizado para buscar o menor elemento do v. || "min" guarda o indice do menor elemento do v. na busca
     Carta carta_aux; // criando a carta aux que nos ajudará nas movimentações
     for(i=0; i < tam_vetor-1; i++) { // o i vai até tam_vetor-1, pois o ultimo elemento da seleção estará já ordenado seguindo o raciocínio do algoritmo
         min = i;
         for (j = i+1; j< tam_vetor; j++){
-            if ((lista->lista_cartas[j].valor_cor) < (lista-> lista_cartas[min].valor_cor)) min = j; // procurando os "menores elementos" com base nas cores. 
+            comparacoes++;
+            if ((lista->lista_cartas[j].valor_cor) < (lista-> lista_cartas[min].valor_cor)) {
+                min = j; 
+            }// procurando os "menores elementos" com base nas cores. 
             // ORDEM DAS CORES: G, Y, R, B, P;
-            else if ((lista->lista_cartas[j].valor_cor) == (lista-> lista_cartas[min].valor_cor)) { // Se as cores forem iguais, comparar entao pelo valor das cartas, priorizando a menor;
-                if ((lista ->lista_cartas[j].numero) < (lista->lista_cartas[min].numero)) min = j;
+            comparacoes++;
+            if (((lista->lista_cartas[j].valor_cor) == (lista-> lista_cartas[min].valor_cor)) && ((lista ->lista_cartas[j].numero) < (lista->lista_cartas[min].numero))){ 
+                // Se as cores forem iguais, mas o valor de uma for menor que o da outra (tem-se a troca);
+                min = j;
+                }
             }
-        }
+        
         // Após cada looping mais interno
+        movimentacoes++;
         carta_aux = lista -> lista_cartas[min]; // a carta auxiliar recebe a menor carta do vetor no momento em q é percorrido
         lista -> lista_cartas[min] = lista ->lista_cartas[i]; // troca-se a carta de menor valor encontrada com a que é maior que ela
-        lista ->lista_cartas[i] = carta_aux; // 
-        }
-        Printar_Lista(lista);
+        lista ->lista_cartas[i] = carta_aux;
+    }
+    tempo_final = clock(); //Marca o tempo final 
+    tempo_total = (double)(tempo_final-tempo_inicial) / CLOCKS_PER_SEC; //Calcula o tempo total em segundos
+    Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
 }
 
 
 void Insercao(Lista_Cartas* lista, int tam_vetor) {
+    clock_t tempo_inicio, tempo_final; 
+    double tempo_total;
+    tempo_inicio = clock(); //Marca o tempo inicial 
+    
     int i, j;
+    int comparacoes = 0, movimentacoes = 0;
     Carta carta_aux;
 
     for (i = 1; i < tam_vetor; i++) { 
@@ -155,12 +176,26 @@ void Insercao(Lista_Cartas* lista, int tam_vetor) {
             //cor que carta_aux, mas um numero maior
             lista->lista_cartas[j + 1] = lista->lista_cartas[j];
             j--;
+            movimentacoes ++; //A cada execucao do while uma movimentacao é realizada
+            comparacoes++; //A cada execucao do while uma comparacao é realizada
         }
-
+        comparacoes++; //Essa comparacao é para quando o nao entrar no while, quando a comparacao for falsa
+        
+        movimentacoes++; //No final é realizado a movimentacao que coloca carta_aux no lugar certo
         lista->lista_cartas[j + 1] = carta_aux; //apos ter aberto espaco para carta_aux, colocamos ela na posicao correta, temos "j+1" porque foi necessário decrementar j 
         //na verificação do while e o ultimo j utilizado nas movimentacoes é o indice correto de carta_aux
-
+        //printf("m%d c%d i%d\n",movimentacoes, comparacoes,i );
     }
+    
+    tempo_final = clock(); //Marca o tempo final 
+    tempo_total = (double)(tempo_final-tempo_inicio) / CLOCKS_PER_SEC; //Calcula o tempo total em segundos
+    Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
 
+}
+
+void Printar_Dados(Lista_Cartas *lista, int comparacoes, int movimentacoes, double tempo_total){
+    printf("Mão Final:\n");
     Printar_Lista(lista);
+    printf("Comparações: %d, Movimentações: %d, Tempo: %lf segundos\n", comparacoes, movimentacoes, tempo_total);
+    
 }

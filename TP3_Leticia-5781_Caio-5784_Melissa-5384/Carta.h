@@ -22,5 +22,5 @@ typedef struct {
 } Carta;
 
 void Inicializa_Carta(Carta* carta, int numero, char cor);
-void Printar_Carta(Carta* carta, int numero, char cor);
+void Printar_Carta(Carta* carta);
 

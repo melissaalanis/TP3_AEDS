@@ -19,7 +19,7 @@ void Inicializa_Carta(Carta* carta, int numero, char cor){ // ORDEM: G, Y, R, B,
         carta-> valor_cor= 5;}
 } // Sao atribuidos a carta na inicializacao o numero dela e sua cor correspondente
 
-void Printar_Carta(Carta* carta, int numero, char cor){
+void Printar_Carta(Carta* carta){
     if (carta -> cor == 'R'){
         if (carta -> numero == 12){
             printf(cor_vermelha "+2" resetar_cor "\n");
