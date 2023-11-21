@@ -100,25 +100,41 @@ void Printar_Lista(Lista_Cartas* lista) {
 }
 
 void BubbleSort(Lista_Cartas* lista, int n) {
+    clock_t tempo_inicial, tempo_final;
+    double tempo_total;
+
+    tempo_inicial = clock();  // Tempo inicial da contagem
+    int comparacoes = 0;
+    int movimentacoes = 0;
     int i, j;
     Carta aux;
     for (i = 0; i < n - 1; i++) {
+        comparacoes++;
         for (j = 1; j < n - i; j++) {
-            // Ordenar por cor primeiro
+            comparacoes++;
             if (lista->lista_cartas[j].valor_cor < lista->lista_cartas[j - 1].valor_cor) {
-                aux = lista->lista_cartas[j];
-                lista->lista_cartas[j] = lista->lista_cartas[j - 1];
-                lista->lista_cartas[j - 1] = aux;
+                // Se as cores forem diferentes, ordena por cor
+                comparacoes++;
+                aux = lista->lista_cartas[j]; // variável temporária aux atribui o valor do elemento na posição j do vetor
+                lista->lista_cartas[j] = lista->lista_cartas[j - 1]; // Copia o valor do elemento na posição j - 1 para a posição j na lista.
+                lista->lista_cartas[j - 1] = aux; // Essa linha copia o valor previamente armazenado em aux (que era o valor original do elemento na posição j) de volta para a posição j - 1 na lista
                 
-            } else if (lista->lista_cartas[j].valor_cor == lista->lista_cartas[j - 1].valor_cor) {// Se as cores forem iguais, ordenar por número
+            } else if (lista->lista_cartas[j].valor_cor == lista->lista_cartas[j - 1].valor_cor) {
+                // Se as cores forem iguais, ordenar por número
+                comparacoes++;
                 if (lista->lista_cartas[j].numero < lista->lista_cartas[j - 1].numero) {
+                    comparacoes++;
                     aux = lista->lista_cartas[j];
                     lista->lista_cartas[j] = lista->lista_cartas[j - 1];
                     lista->lista_cartas[j - 1] = aux;
                 }
             }
+        movimentacoes++;
         }
     }
+    tempo_final = clock(); //Marca o tempo final 
+    tempo_total = (double)(tempo_final-tempo_inicial) / CLOCKS_PER_SEC; //Calcula o tempo total em segundos
+    Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
 }
 
 void Selecao(Lista_Cartas*lista, int tam_vetor){
@@ -191,6 +207,32 @@ void Insercao(Lista_Cartas* lista, int tam_vetor) {
     tempo_total = (double)(tempo_final-tempo_inicio) / CLOCKS_PER_SEC; //Calcula o tempo total em segundos
     Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
 
+}
+
+void Quick_Particao(int Esq, int Dir, int *i, int *j, Carta* A){
+    Carta pivo, aux;
+    *i = Esq; *j = Dir;
+    pivo = A[(*i + *j)/2]; /* obtem o pivo x */
+    do{
+        while (pivo.Chave > A[*i].Chave) (*i)++;
+        while (pivo.Chave < A[*j].Chave) (*j)--;
+        if (*i <= *j){
+            aux = A[*i]; A[*i] = A[*j]; A[*j] = aux;
+            (*i)++; (*j)--;
+        }
+    } while (*i <= *j);
+
+}
+
+void Quick_Ordena(int Esq, int Dir, Carta* A){
+    int i,j;
+    Quick_Particao(Esq, Dir, &i, &j, A);
+    if (Esq < j) Quick_Ordena(Esq, j, A);
+    if (i < Dir) Quick_Ordena(i, Dir, A);
+}
+
+void QuickSort(Carta* A, int n){
+    Quick_Ordena(0, n-1, A); 
 }
 
 void Printar_Dados(Lista_Cartas *lista, int comparacoes, int movimentacoes, double tempo_total){
