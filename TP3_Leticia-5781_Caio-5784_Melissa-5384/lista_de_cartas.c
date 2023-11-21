@@ -209,35 +209,42 @@ void Insercao(Lista_Cartas* lista, int tam_vetor) {
 
 }
 
-void Quick_Particao(int Esq, int Dir, int *i, int *j, Carta* A){
+void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista) {
     Carta pivo, aux;
-    *i = Esq; *j = Dir;
-    pivo = A[(*i + *j)/2]; /* obtem o pivo x */
-    do{
-        while (pivo.Chave > A[*i].Chave) (*i)++;
-        while (pivo.Chave < A[*j].Chave) (*j)--;
-        if (*i <= *j){
-            aux = A[*i]; A[*i] = A[*j]; A[*j] = aux;
-            (*i)++; (*j)--;
+    *i = Esq;
+    *j = Dir;
+    pivo = lista->lista_cartas[(*i + *j) / 2]; /* obtem o pivo x */
+    do {
+        while (pivo.valor_cor > lista->lista_cartas[*i].valor_cor || (pivo.valor_cor == lista->lista_cartas[*i].valor_cor && pivo.numero > lista->lista_cartas[*i].numero))
+            (*i)++;
+        while (pivo.valor_cor < lista->lista_cartas[*j].valor_cor || (pivo.valor_cor == lista->lista_cartas[*j].valor_cor && pivo.numero < lista->lista_cartas[*j].numero))
+            (*j)--;
+        if (*i <= *j) {
+            aux = lista->lista_cartas[*i];
+            lista->lista_cartas[*i] = lista->lista_cartas[*j];
+            lista->lista_cartas[*j] = aux;
+            (*i)++;
+            (*j)--;
         }
     } while (*i <= *j);
-
 }
 
-void Quick_Ordena(int Esq, int Dir, Carta* A){
-    int i,j;
-    Quick_Particao(Esq, Dir, &i, &j, A);
-    if (Esq < j) Quick_Ordena(Esq, j, A);
-    if (i < Dir) Quick_Ordena(i, Dir, A);
+void Quick_Ordena(int Esq, int Dir, Lista_Cartas* lista) {
+    int i, j;
+    Quick_Particao(Esq, Dir, &i, &j, lista);
+    if (Esq < j)
+        Quick_Ordena(Esq, j, lista);
+    if (i < Dir)
+        Quick_Ordena(i, Dir, lista);
 }
 
-void QuickSort(Carta* A, int n){
-    Quick_Ordena(0, n-1, A); 
+void QuickSort(Lista_Cartas* lista, int n) {
+    Quick_Ordena(0, n - 1, lista);
+    Printar_Dados(lista,4, 5, 12.5);
 }
 
 void Printar_Dados(Lista_Cartas *lista, int comparacoes, int movimentacoes, double tempo_total){
     printf("Mão Final:\n");
     Printar_Lista(lista);
     printf("Comparações: %d, Movimentações: %d, Tempo: %lf segundos\n", comparacoes, movimentacoes, tempo_total);
-    
 }

@@ -26,7 +26,8 @@ void Menu(Lista_Cartas* baralho){
         /* code */
         break;
     case 5:
-        /* code */
+        printf("QUICKSORT:\n");
+        QuickSort(baralho, Max_Tam-1);
         break;
     case 6:
         /* code */

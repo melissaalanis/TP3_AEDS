@@ -13,6 +13,6 @@ void Printar_Dados(Lista_Cartas* lista, int comparacoes, int movimentacoes, doub
 void BubbleSort(Lista_Cartas* lista, int n);
 void Selecao(Lista_Cartas*lista, int tam_vetor);
 void Insercao (Lista_Cartas* lista, int tam_vetor);
-void Quick_Ordena(int Esq, int Dir, Carta* A);
-void Quick_Particao(int Esq, int Dir, int *i, int *j, Carta* A);
-void QuickSort(Carta* A, int n);
+void Quick_Ordena(int Esq, int Dir, Lista_Cartas* lista);
+void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista);
+void QuickSort(Lista_Cartas* lista, int n);
