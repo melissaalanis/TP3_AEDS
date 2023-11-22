@@ -23,10 +23,11 @@ void Menu(Lista_Cartas* baralho){
         Insercao(baralho, Max_Tam-1);
         break;
     case 4:
-        /* code */
+        printf("SHELL:\n");
+        Insercao(baralho, Max_Tam-1);
         break;
     case 5:
-        printf("QUICKSORT:\n");
+        printf("QUICK:\n");
         QuickSort(baralho, Max_Tam-1);
         break;
     case 6:

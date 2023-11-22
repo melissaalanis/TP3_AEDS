@@ -209,6 +209,53 @@ void Insercao(Lista_Cartas* lista, int tam_vetor) {
 
 }
 
+void Shellsort (Lista_Cartas* lista, int tam_vetor){
+    clock_t tempo_inicio, tempo_final; 
+    double tempo_total;
+    tempo_inicio = clock(); //Marca o tempo inicial 
+
+    int i, j;
+    int h = 1;
+    int comparacoes = 0, movimentacoes = 0;
+    Carta aux;
+
+    do { // Faz o cálculo do h, um elemento crucial a ser utilizado para ordenação do vetor.
+        h = h * 3 + 1; // o "h" é, basicamente, uma variavel que define a distancia dos elementos a serem comparados com base no tamanho do vetor.
+        comparacoes++;
+    } while (h < tam_vetor);
+
+    do
+    {
+        comparacoes++; //VERIFICAR SE ESSE COMPARACOES++ AQUI TA CORRETO
+        h = h/3;
+        for( i = h ; i < tam_vetor ; i++ )
+        {
+            aux = lista -> lista_cartas[i]; 
+            j = i;
+
+            /*Neste trecho, tem-se, além da comparação, a troca dos elementos que estao nos intervalos definidos por h.
+            Vale salientar que estas trocas ocorrem de acordo com a prioridade da cor e, também, de acordo com os valores das cartas a serem trocadas.
+            Uma carta vermelha 01 é maior do que uma verde 01, por exemplo. Logo, esse while é responsável por realizar estas verificações e as trocas,
+            caso necessárias.
+            */
+            while ((lista->lista_cartas[j-h].valor_cor > aux.valor_cor) && (lista ->lista_cartas[j-h].numero > aux.numero))
+            {
+                comparacoes++;
+                lista ->lista_cartas[j] = lista ->lista_cartas[j-h]; // troca elemento atual com o que está à h-ésima distância dele.
+                movimentacoes++; 
+                j -= h; 
+                if (j < h) break; // Quando j é menor que h, isso significa que não há mais nada para ser ordenado no intervalo do momento.
+            }
+            comparacoes++; 
+            lista -> lista_cartas[j] = aux;
+        }
+    } while (h != 1);
+
+    tempo_final = clock(); //Marca o tempo final 
+    tempo_total = (double)(tempo_final-tempo_inicio) / CLOCKS_PER_SEC; //Calcula o tempo total em segundos
+    Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
+}
+
 void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista) {
     Carta pivo, aux;
     *i = Esq;
