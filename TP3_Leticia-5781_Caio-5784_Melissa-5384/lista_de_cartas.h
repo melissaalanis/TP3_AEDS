@@ -14,6 +14,6 @@ void BubbleSort(Lista_Cartas* lista, int n);
 void Selecao(Lista_Cartas*lista, int tam_vetor);
 void Insercao (Lista_Cartas* lista, int tam_vetor);
 void Shellsort (Lista_Cartas* lista, int tam_vetor);
-void Quick_Ordena(int Esq, int Dir, Lista_Cartas* lista);
-void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista);
+void Quick_Ordena(int Esq, int Dir, Lista_Cartas* lista, int *comparacoes, int *movimentacoes);
+void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista, int *comparacoes, int *movimentacoes);
 void QuickSort(Lista_Cartas* lista, int n);

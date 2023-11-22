@@ -256,39 +256,57 @@ void Shellsort (Lista_Cartas* lista, int tam_vetor){
     Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
 }
 
-void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista) {
+void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista, int *comparacoes, int *movimentacoes) {
     Carta pivo, aux;
     *i = Esq;
     *j = Dir;
     pivo = lista->lista_cartas[(*i + *j) / 2]; /* obtem o pivo x */
     do {
         while (pivo.valor_cor > lista->lista_cartas[*i].valor_cor || (pivo.valor_cor == lista->lista_cartas[*i].valor_cor && pivo.numero > lista->lista_cartas[*i].numero))
-            (*i)++;
+            (*i)++;  
+            (*comparacoes)++;
         while (pivo.valor_cor < lista->lista_cartas[*j].valor_cor || (pivo.valor_cor == lista->lista_cartas[*j].valor_cor && pivo.numero < lista->lista_cartas[*j].numero))
             (*j)--;
+            (*comparacoes)++;
         if (*i <= *j) {
+            (*comparacoes)++;
             aux = lista->lista_cartas[*i];
             lista->lista_cartas[*i] = lista->lista_cartas[*j];
             lista->lista_cartas[*j] = aux;
             (*i)++;
             (*j)--;
+            (*movimentacoes)++; //A cada execucao do while uma movimentacao é realizada
         }
     } while (*i <= *j);
 }
 
-void Quick_Ordena(int Esq, int Dir, Lista_Cartas* lista) {
+void Quick_Ordena(int Esq, int Dir, Lista_Cartas* lista, int *comparacoes, int *movimentacoes) {
     int i, j;
-    Quick_Particao(Esq, Dir, &i, &j, lista);
-    if (Esq < j)
-        Quick_Ordena(Esq, j, lista);
-    if (i < Dir)
-        Quick_Ordena(i, Dir, lista);
+    Quick_Particao(Esq, Dir, &i, &j, lista, comparacoes, movimentacoes); 
+    // a funçao é responsavel por realmente trocar os elementos de determinada partiçao definida 
+    if (Esq < j){  
+        // Verifica se a posição "esquerda" é menor que a posicao "j", caso seja ordena-se os elementos a esquerda de j
+        (*comparacoes)++;
+        Quick_Ordena(Esq, j, lista, comparacoes, movimentacoes);}
+    if (i < Dir){ 
+        // Verifica se a posição "direita" é menor que a posicao "i", caso seja ordena-se os elementos a direita de i
+        (*comparacoes)++;
+        Quick_Ordena(i, Dir, lista, comparacoes, movimentacoes);} // Chamamos a funçao recursivamente ate a completa ordenção
 }
 
 void QuickSort(Lista_Cartas* lista, int n) {
-    Quick_Ordena(0, n - 1, lista);
-    Printar_Dados(lista,4, 5, 12.5);
+    clock_t tempo_inicio, tempo_final; 
+    double tempo_total;
+    tempo_inicio = clock(); //Marca o tempo inicial 
+    int comparacoes = 0;
+    int movimentacoes = 0;
+
+    Quick_Ordena(0, n - 1, lista, &comparacoes, &movimentacoes);
+    tempo_final = clock(); //Marca o tempo final 
+    tempo_total = (double)(tempo_final-tempo_inicio) / CLOCKS_PER_SEC; //Calcula o tempo total em segundos
+    Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
 }
+
 
 void Printar_Dados(Lista_Cartas *lista, int comparacoes, int movimentacoes, double tempo_total){
     printf("Mão Final:\n");
