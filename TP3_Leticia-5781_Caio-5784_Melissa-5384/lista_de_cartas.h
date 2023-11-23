@@ -1,11 +1,15 @@
 #include "Carta.h"
+#include <stdio.h>
 #define Max_Tam 11
+#define Tamanho_Baralho 56
 
 typedef struct {
+    Carta baralho[Tamanho_Baralho];
     Carta lista_cartas[Max_Tam];
 } Lista_Cartas;
 
 void Preencher_Lista_Interativa(Lista_Cartas* lista);
+void Carregar_Baralho_Aleatorio(Lista_Cartas* baralho);
 void Preencher_Lista_Arquivo(Lista_Cartas* lista, FILE* arquivo);
 void Adicionar_Carta_Lista(Lista_Cartas* lista, Carta* carta, int indice);
 void Printar_Lista(Lista_Cartas* lista);

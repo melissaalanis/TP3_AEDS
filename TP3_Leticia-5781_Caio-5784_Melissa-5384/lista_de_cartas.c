@@ -6,6 +6,42 @@
 void Adicionar_Carta_Lista(Lista_Cartas* lista, Carta *carta, int indice){
     lista -> lista_cartas[indice] = *carta; // Uma carta eh adicionada na lista de cartas no indice correspondente 
 } 
+void Carregar_Baralho_Aleatorio(Lista_Cartas* baralho){
+    char cores[5] = {'R', 'G', 'Y', 'B', 'P'};
+    Carta carta_aux;
+    int carta_numero;
+    char carta_cor;
+    int cont = 0;
+    for(int j = 0; j < Qtd_cores-1; j++){
+        carta_cor = cores[j];
+        for (int i = 0; i < Qtd_cartas; i++){
+            carta_numero = i;
+            //printf("%d", cont);
+            Inicializa_Carta(&carta_aux, carta_numero, carta_cor);
+            //Printar_Carta(&carta_aux);
+            Adicionar_Carta_Lista(baralho, &carta_aux, cont);
+            cont = cont+1;
+        }
+        
+    }    
+    carta_cor = cores[4];
+    for (int i = 0; i < Qtd_coringa; i++){
+        carta_numero = 14;
+        //printf("%d", cont);
+        Inicializa_Carta(&carta_aux, carta_numero, carta_cor);
+        //Printar_Carta(&carta_aux);
+        Adicionar_Carta_Lista(baralho, &carta_aux, cont);
+        cont = cont+1;
+    }
+    for (int i = 0; i < Qtd_mais_quatro ; i++){
+        carta_numero = 13;
+        //printf("%d", cont);
+        Inicializa_Carta(&carta_aux, carta_numero, carta_cor);
+        //Printar_Carta(&carta_aux);
+        Adicionar_Carta_Lista(baralho, &carta_aux, cont);
+        cont = cont+1;
+    }
+}
 
 void Preencher_Lista_Interativa(Lista_Cartas* lista) { 
     char cores[5] = {'R', 'G', 'Y', 'B', 'P'}; // R = RED (Vermelho) || G = GREEN (Verde) || Y = YELLOW (Amarelo) || B = BLUE (Azul) || P = PRETO (Cartas coringa e +4)
@@ -92,7 +128,7 @@ void Preencher_Lista_Arquivo(Lista_Cartas* lista, FILE* arquivo){
 
 void Printar_Lista(Lista_Cartas* lista) {
     Carta carta_aux;
-    for (int i = 0; i < Max_Tam-1; i++) {
+    for (int i = 0; i <Max_Tam-1; i++) {
         carta_aux = lista-> lista_cartas[i];
         printf("[%02d]: ", i+1);
         Printar_Carta(&carta_aux);
