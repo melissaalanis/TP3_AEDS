@@ -48,7 +48,7 @@ int main(){
     printf("Bem vinde ao TP3!\nSelecione o modo que deseja ordenar de acordo com o número\n1) Modo Interativo\n2) Modo Arquivo\n");
     scanf("%d", &opcao);
     if (opcao == 1){
-        Preencher_Lista_Interativa(&lista);  //Preenche a lista com numeros aleatorios
+        Preencher_Lista_Interativa(&lista); //Preenche a lista com numeros aleatorios
         Menu(&lista); //a pes
     }
 

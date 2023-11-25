@@ -43,24 +43,9 @@ void Carregar_Baralho_Aleatorio(Lista_Cartas* baralho){
     }
 }
 
-void Preencher_Lista_Interativa(Lista_Cartas* lista) { 
-    char cores[5] = {'R', 'G', 'Y', 'B', 'P'}; // R = RED (Vermelho) || G = GREEN (Verde) || Y = YELLOW (Amarelo) || B = BLUE (Azul) || P = PRETO (Cartas coringa e +4)
-    int carta_numero, carta_cor;
-
-    srand(time(NULL)); //Gera a semente dos números aleatorios
-
-    for (int i = 0; i < Max_Tam-1; i++) { //O for vai até "Max_Tam-1" pois Max_Tam é 11 devido ao fato de termos deixado, por segurança, uma posição a mais no vetor 
-        Carta carta_aux;
-        carta_cor = (rand() % Qtd_cores); //Gera um avlor de 0 a 4 - indices do vetor cores
-        if (carta_cor == 4) { // Se a carta for preta - indice == 4 - seu valor so pode ser 13 ou 14
-            carta_numero = ((rand()% Qtd_coringa) + 13); //O "rand()% Qtd_coringa" gera 0 ou 1, o "+13" serve para torna-lo 13 ou 14
-        } else {
-            carta_numero = (rand() % Qtd_cartas); //Gera um valor entre 0 e 12
-        }
-
-        //Inicializando a carta e adicionando na lista
-        Inicializa_Carta(&carta_aux, carta_numero, cores[carta_cor]); 
-        Adicionar_Carta_Lista(lista, &carta_aux, i);
+void Preencher_Lista_Interativa(Lista_Cartas* lista) {
+    for (int i=0; i<Max_Tam-1; i++){
+        Adicionar_Carta_Lista(lista, &(lista->baralho[i]), i);
     }
 }
  
