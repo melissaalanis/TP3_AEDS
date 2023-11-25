@@ -9,6 +9,7 @@ typedef struct {
 } Lista_Cartas;
 
 void Preencher_Lista_Interativa(Lista_Cartas* lista);
+void Embaralhar_Baralho(Lista_Cartas* lista);
 void Carregar_Baralho_Aleatorio(Lista_Cartas* baralho);
 void Preencher_Lista_Arquivo(Lista_Cartas* lista, FILE* arquivo);
 void Adicionar_Carta_Lista(Lista_Cartas* lista, Carta* carta, int indice);

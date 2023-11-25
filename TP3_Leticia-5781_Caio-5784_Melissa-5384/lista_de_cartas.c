@@ -6,6 +6,20 @@
 void Adicionar_Carta_Lista(Lista_Cartas* lista, Carta *carta, int indice){
     lista -> lista_cartas[indice] = *carta; // Uma carta eh adicionada na lista de cartas no indice correspondente 
 } 
+
+void Embaralhar_Baralho(Lista_Cartas* baralho) {
+    int tamanho = 54;
+
+    // Embaralhando o vetor de cartas usando Fisher-Yates
+    srand(time(NULL));
+    for (int i = tamanho - 1; i > 0; i--) {
+        int nova_posicao = rand() % (i + 1);
+        Carta temp = baralho->lista_cartas[i];
+        baralho->lista_cartas[i] = baralho->lista_cartas[nova_posicao];
+        baralho->lista_cartas[nova_posicao] = temp;
+    }
+}
+
 void Carregar_Baralho_Aleatorio(Lista_Cartas* baralho){
     char cores[5] = {'R', 'G', 'Y', 'B', 'P'};
     Carta carta_aux;
@@ -41,6 +55,7 @@ void Carregar_Baralho_Aleatorio(Lista_Cartas* baralho){
         Adicionar_Carta_Lista(baralho, &carta_aux, cont);
         cont = cont+1;
     }
+    Embaralhar_Baralho(baralho);
 }
 
 void Preencher_Lista_Interativa(Lista_Cartas* lista) {
