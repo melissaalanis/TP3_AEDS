@@ -69,7 +69,7 @@ void Preencher_Lista_Arquivo(Lista_Cartas* lista, FILE* arquivo){
 
     for(int i = 0; i < Max_Tam-1; i++){
         Carta carta_aux;  
-        fscanf(arquivo, " (%s %s) ", carta_cor, carta_tipo);
+        fscanf(arquivo, " (%s %[^)]) ", carta_cor, carta_tipo);
         //Pega a string com o nome da cor e associa a sua letra correspondente
         //R = RED (Vermelho) || G = GREEN (Verde) || Y = YELLOW (Amarelo) || B = BLUE (Azul) || P = PRETO (Cartas coringa e +4)
         if (strcmp(carta_cor, "Azul") == 0) {
@@ -85,35 +85,35 @@ void Preencher_Lista_Arquivo(Lista_Cartas* lista, FILE* arquivo){
         }
 
         //Pega o tipo da carta e associa ao numero correspondente
-        if (strcmp(carta_tipo, "Coringa)") == 0) {
+        if (strcmp(carta_tipo, "Coringa") == 0) {
             carta_numero = 14;
-        } else if (strcmp(carta_tipo, "+2)") == 0) {
+        } else if (strcmp(carta_tipo, "+2") == 0) {
             carta_numero = 12;
-        } else if (strcmp(carta_tipo, "+4)") == 0) {
+        } else if (strcmp(carta_tipo, "+4") == 0) {
             carta_numero = 13;
-        } else if (strcmp(carta_tipo, "Voltar)") == 0) {
+        } else if (strcmp(carta_tipo, "Voltar") == 0) {
             carta_numero = 11;
-        } else if (strcmp(carta_tipo, "Pular)") == 0) {
+        } else if (strcmp(carta_tipo, "Pular") == 0) {
             carta_numero = 10;
-        } else if (strcmp(carta_tipo, "0)") == 0) {
+        } else if (strcmp(carta_tipo, "0") == 0) {
             carta_numero = 0;
-        } else if (strcmp(carta_tipo, "1)") == 0) {
+        } else if (strcmp(carta_tipo, "1") == 0) {
             carta_numero = 1;
-        } else if (strcmp(carta_tipo, "2)") == 0) {
+        } else if (strcmp(carta_tipo, "2") == 0) {
             carta_numero = 2;
-        } else if (strcmp(carta_tipo, "3)") == 0) {
+        } else if (strcmp(carta_tipo, "3") == 0) {
             carta_numero = 3;
-        } else if (strcmp(carta_tipo, "4)") == 0) {
+        } else if (strcmp(carta_tipo, "4") == 0) {
             carta_numero = 4;
-        } else if (strcmp(carta_tipo, "5)") == 0) {
+        } else if (strcmp(carta_tipo, "5") == 0) {
             carta_numero = 5;
-        } else if (strcmp(carta_tipo, "6)") == 0) {
+        } else if (strcmp(carta_tipo, "6") == 0) {
             carta_numero = 6;
-        } else if (strcmp(carta_tipo, "7)") == 0) {
+        } else if (strcmp(carta_tipo, "7") == 0) {
             carta_numero = 7;
-        } else if (strcmp(carta_tipo, "8)") == 0) {
+        } else if (strcmp(carta_tipo, "8") == 0) {
             carta_numero = 8;
-        } else if (strcmp(carta_tipo, "9)") == 0) {
+        } else if (strcmp(carta_tipo, "9") == 0) {
             carta_numero = 9;
         }
 

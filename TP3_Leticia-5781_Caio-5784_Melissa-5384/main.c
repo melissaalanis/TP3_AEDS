@@ -53,7 +53,7 @@ int main(){
 
     if (opcao == 1){
         Preencher_Lista_Interativa(&lista); //Preenche a lista com numeros aleatorios
-        Menu(&lista); //a pes
+        Menu(&lista); 
     }
 
     else if (opcao == 2){
