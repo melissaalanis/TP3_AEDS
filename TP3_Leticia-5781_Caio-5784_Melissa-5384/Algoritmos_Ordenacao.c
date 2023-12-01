@@ -18,7 +18,8 @@ void BubbleSort(Lista_Cartas* lista, int n) {
 
             if ((lista->lista_cartas[j].valor_cor < lista->lista_cartas[j - 1].valor_cor) ||
             ((lista->lista_cartas[j].valor_cor == lista->lista_cartas[j - 1].valor_cor) && 
-            (lista->lista_cartas[j].numero < lista->lista_cartas[j - 1].numero))) {
+            (lista->lista_cartas[j].numero < lista->lista_cartas[j - 1].numero))) { // Compara os iten de j e j-1 para verificar 
+                                                                                    //se devem ou nao ocorrer movimentacoes
                 
                 aux = lista->lista_cartas[j];
                 lista->lista_cartas[j] = lista->lista_cartas[j - 1];
@@ -94,8 +95,9 @@ void Insercao(Lista_Cartas* lista, int tam_vetor) {
         while ((j >= 0) && ((carta_aux.valor_cor < lista->lista_cartas[j].valor_cor) || 
         ((carta_aux.valor_cor == lista->lista_cartas[j].valor_cor) && 
         (carta_aux.numero < lista->lista_cartas[j].numero)))) {
-            //Se a carta j+1 tiver uma cor maior que a da carta_aux e, ao mesmo tempo, um número maior, significa que ela tem que ser movida uma 
-            //posição para a frente com o objetivo de "abrir espaco" para carta_aux, pois se isso acontecer significa que carta_aux é menor que ela, 
+            //Se a carta j+1 tiver uma cor maior que a da carta_aux e, ao mesmo tempo, um número maior, 
+            //significa que ela tem que ser movida uma posição para a frente com o objetivo de "abrir espaco" 
+            //para carta_aux, pois se isso acontecer significa que carta_aux é menor que ela, 
             //o mesmo acoentce que carta j tiver a mesma cor que carta_aux, mas um numero maior
             lista->lista_cartas[j + 1] = lista->lista_cartas[j];
             j--;
@@ -105,8 +107,9 @@ void Insercao(Lista_Cartas* lista, int tam_vetor) {
         comparacoes+=3; //Essa comparacao é para quando o nao entrar no while, quando a comparacao for falsa
         
         movimentacoes++; //No final é realizado a movimentacao que coloca carta_aux no lugar certo
-        lista->lista_cartas[j + 1] = carta_aux; //apos ter aberto espaco para carta_aux, colocamos ela na posicao correta, temos "j+1" porque foi 
-        //necessário decrementar j na verificação do while e o ultimo j utilizado nas movimentacoes é o indice correto de carta_aux
+        lista->lista_cartas[j + 1] = carta_aux; //apos ter aberto espaco para carta_aux, colocamos ela na posicao correta, 
+        // temos "j+1" porque foi necessário decrementar j na verificação do while e o ultimo j utilizado nas movimentacoes é 
+        //o indice correto de carta_aux
     }
     
     tempo_final = clock(); //Marca o tempo final 
@@ -186,6 +189,7 @@ void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista, int *
             (*comparacoes)+=3;
         }
         (*comparacoes)+=3;
+        //Dois loops while são usados para encontrar elementos fora da posicao à esquerda e à direita do pivô 
         
         if (*i <= *j) {
             aux = lista->lista_cartas[*i];
@@ -200,13 +204,12 @@ void Quick_Particao(int Esq, int Dir, int *i, int *j, Lista_Cartas* lista, int *
 
 void Quick_Ordena(int Esq, int Dir, Lista_Cartas* lista, int *comparacoes, int *movimentacoes) {
     int i, j;
-    Quick_Particao(Esq, Dir, &i, &j, lista, comparacoes, movimentacoes); 
-    // a funçao é responsavel por realmente trocar os elementos de determinada partiçao definida 
+    Quick_Particao(Esq, Dir, &i, &j, lista, comparacoes, movimentacoes);  
     if (Esq < j){  
-        // Verifica se a posição "esquerda" é menor que a posicao "j", caso seja "ordena-se os" elementos a esquerda de j
+        // Verifica o intervalo da particao
         Quick_Ordena(Esq, j, lista, comparacoes, movimentacoes);}
     if (i < Dir){ 
-        // Verifica se a posição "direita" é menor que a posicao "i", caso seja ordena-se os elementos a direita de i
+        // Verifica o intervalo da particao
         Quick_Ordena(i, Dir, lista, comparacoes, movimentacoes);} // Chamamos a funçao recursivamente ate a completa ordenção
 }
 
@@ -220,16 +223,17 @@ void QuickSort(Lista_Cartas* lista, int n) {
     Quick_Ordena(0, n - 1, lista, &comparacoes, &movimentacoes);
     tempo_final = clock(); //Marca o tempo final 
     tempo_total = (double)(tempo_final-tempo_inicio) / CLOCKS_PER_SEC; //Calcula o tempo total em segundos
-    Printar_Dados(lista, comparacoes, movimentacoes, tempo_total);
+    Printar_Dados(lista, comparacoes, movimentacoes, tempo_total); 
 }
 
 // HEAPSORT
 
 void Constroi(Carta *lista, int *n, int *movimentacoes, int *comparacoes){
     int Esq;
-    Esq = *n / 2 + 1; //Pega o meio do vetor
-    while (Esq > 1){
-        Esq--;
+    Esq = *n / 2 + 1; //Pega o meio do vetor, pois somente a primeira metade vai possuir filhos, devido a condicao 
+    //dos filhos serem i * 2 e i*2+1
+    while (Esq > 1){ 
+        Esq--; //Pega os proximos pais, até que chegue no final do heap (poiscao Esq)
         Refaz(Esq, *n, lista, movimentacoes, comparacoes);
     }
 }
@@ -242,7 +246,8 @@ void Refaz(int Esq, int Dir, Carta *lista, int *movimentacoes, int *comparacoes)
     while (j <= Dir){
 
         (*comparacoes) += 3; //comparacao do if
-        //Verifica se o elemto j e j+1 estão posicionados corretamente, se tiverem passa para o j, ou seja, proxima comparacao
+        //Esse if é utilizado para pegar o maior filho, ou seja, qual será comparado com o pai (carta_aux)
+        //No próximo if
         if ((j < Dir)&&((lista[j].valor_cor < lista[j+1].valor_cor)
         ||((lista[j].valor_cor == lista[j+1].valor_cor) && 
         (lista[j].numero < lista[j+1].numero)))){
@@ -250,22 +255,22 @@ void Refaz(int Esq, int Dir, Carta *lista, int *movimentacoes, int *comparacoes)
         }
 
         (*comparacoes) += 3; //comparacao do if
-        //Se esse if for verdadeiro significa que o heap esta formado, ou seja, mior valor, que ainda não foi ordenado, esta no indice 1 
+        //Esse if verifica se a condicao de heap já foi atendida, ou seja o pai é maior que os filhos
         if ((carta_aux.valor_cor >lista[j].valor_cor) || 
         ((carta_aux.valor_cor == lista[j].valor_cor) && 
         (carta_aux.numero > lista[j].numero))){
             break;
         }
 
-        //Garante que o maior elemto está sendo movido para o indice 1
+        //Garante que o maior elemento será o pai
         lista[Esq] = lista[j];
         (*movimentacoes) ++;       
         
-        //Passsa para a proxima verificação
+        //Passsa para a proxima verificação, proximo pai    
         Esq = j; 
         j = Esq * 2 ;
     }
-    //Move, efetivamente, a carta, garantindo que o heap seja formado
+    //Move a carta, garantindo que o heap seja formado
     lista[Esq] = carta_aux;
     (*movimentacoes) ++;
 }
@@ -282,7 +287,7 @@ void Heapsort(Carta *lista, int *n, int *movimentacoes, int *comparacoes){
 
         
         //Essa parte é responsável por mover o elemento de maior valor, que vai esta na primeira posicao do heap
-        //para o final do vetor, posicao dir
+        //para o final dele, posicao dir
         carta_aux = lista[1]; 
         lista[1] = lista[Dir]; 
         lista[Dir] = carta_aux;
@@ -290,7 +295,7 @@ void Heapsort(Carta *lista, int *n, int *movimentacoes, int *comparacoes){
         (*movimentacoes) += 3;
 
         Dir--;
-        Refaz(Esq, Dir, lista, movimentacoes, comparacoes); ///Apos a movimentacao o heap é refeito
+        Refaz(Esq, Dir, lista, movimentacoes, comparacoes); //Apos a movimentacao o heap é refeito
     }
 }
 

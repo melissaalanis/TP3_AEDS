@@ -24,6 +24,12 @@ void Printar_Carta(Carta* carta){
         if (carta -> numero == 12){
             printf(cor_vermelha "+2" resetar_cor "\n");
         }
+        else if (carta -> numero == 10){
+            printf(cor_vermelha "⊗ " resetar_cor "\n");
+        }
+        else if (carta -> numero == 11){
+            printf(cor_vermelha "⇵ " resetar_cor "\n");
+        }
         else{
             printf(cor_vermelha "%02d" resetar_cor  "\n", carta -> numero ); //Quando a variavel cor for igual a R o fundo daquela carta sera vermelho 
         }
@@ -31,6 +37,12 @@ void Printar_Carta(Carta* carta){
     else if (carta -> cor == 'G'){
         if (carta -> numero == 12){
             printf(cor_verde "+2" resetar_cor "\n");
+        }
+        else if (carta -> numero == 10){
+            printf(cor_verde "⊗ " resetar_cor "\n");
+        }
+        else if (carta -> numero == 11){
+            printf(cor_verde "⇵ " resetar_cor "\n");
         }
         else{
             printf(cor_verde "%02d" resetar_cor  "\n" , carta -> numero);// Logo apos o numero ser printado com a cor de fundo alterada a cor é redefinida para o padrao
@@ -40,12 +52,24 @@ void Printar_Carta(Carta* carta){
         if (carta -> numero == 12){
             printf(cor_azul "+2" resetar_cor "\n");
         }
+        else if (carta -> numero == 10){
+            printf(cor_azul "⊗ " resetar_cor "\n");
+        }
+        else if (carta -> numero == 11){
+            printf(cor_azul "⇵ " resetar_cor "\n");
+        }
         else{
             printf(cor_azul "%02d" resetar_cor "\n", carta -> numero);}
     }
     else if (carta -> cor == 'Y'){
         if (carta -> numero == 12){
             printf(cor_amarela "+2" resetar_cor "\n");
+        }
+        else if (carta -> numero == 10){
+            printf(cor_amarela "⊗ " resetar_cor "\n");
+        }
+        else if (carta -> numero == 11){
+            printf(cor_amarela "⇵ " resetar_cor "\n");
         }
         else{
             printf(cor_amarela "%02d" resetar_cor "\n", carta -> numero);// O "%02d" faz com que todos os numeros sejao exibidos com dois digitos
@@ -54,6 +78,9 @@ void Printar_Carta(Carta* carta){
     else if (carta -> cor == 'P'){
         if (carta -> numero == 13){
             printf("+4" "\n");
+        }
+        else if(carta -> numero == 14){
+            printf( "🃟" resetar_cor "\n");
         }
         else{
             printf("%02d" resetar_cor "\n", carta -> numero);

@@ -1,4 +1,4 @@
 3
-(Verde 6) (Verde Pular) (Amarelo 6) (Amarelo Voltar) (Vermelho 3) (Vermelho 6) (Vermelho +2) (Azul 4) (Azul 8) (Azul 9)
+(Verde 6) (Verde Pular) (Amarelo 6) (Amarelo Voltar) (Vermelho 3) (Vermelho 6) (Vermelho +2) (Preto Coringa) (Azul 8) (Azul 9)
 (Azul 9) (Azul 8) (Azul 4) (Vermelho +2) (Vermelho 6) (Vermelho 3) (Amarelo Voltar) (Amarelo 6) (Verde Pular) (Verde 6)
-(Vermelho 7) (Azul 2) (Amarelo 3) (Amarelo 2) (Amarelo 6) (Preto Coringa) (Azul +2) (Vermelho +2) (Verde Pular) (Verde 5)
+(Vermelho 7) (Azul 2) (Amarelo 3) (Amarelo 2) (Amarelo 6) (Preto Coringa) (Azul +2) (Vermelho +2) (Vermelho Pular) (Vermelho Voltar)
